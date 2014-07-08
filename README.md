@@ -1,6 +1,6 @@
 # Dependency Graph
 
-[![Build Status](https://travis-ci.org/MikeRoetgers/dependency-graph.svg)](https://travis-ci.org/MikeRoetgers/dependency-graph)
+[![Build Status](https://travis-ci.org/MikeRoetgers/data-mapper.svg?branch=master)](https://travis-ci.org/MikeRoetgers/data-mapper)
 
 This is a simple implementation of a dependency graph (directed acyclic graph). Define operations and dependencies between the different operations. The dependency manager keeps track of all dependencies and tells you which operations can be executed. This is especially convenient if you are working with long-running tasks and you want to identify which operations may run in parallel. 
  
