@@ -1,0 +1,23 @@
+{
+    "name": "mike-roetgers/dependency-graph",
+    "type": "library",
+    "description": "Dependency graph for PHP",
+    "keywords": [],
+    "homepage": "https://github.com/MikeRoetgers/dependency-graph",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mike Roetgers",
+            "email": "mike@roetgers.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.1.*"
+    },
+    "autoload": {
+        "psr-0": { "MikeRoetgers\\DependencyGraph": "src" }
+    }
+}
