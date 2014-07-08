@@ -12,8 +12,16 @@ class DependencyManager
      */
     private $nodes = array();
 
+    /**
+     * @var bool
+     */
     private $graphInitialized = false;
 
+    /**
+     * @param Operation $operation
+     * @return $this
+     * @throws Exception\GraphWriteException
+     */
     public function addOperation(Operation $operation)
     {
         if ($this->graphInitialized) {
@@ -23,6 +31,13 @@ class DependencyManager
         return $this;
     }
 
+    /**
+     * Given child operation depends on parent operation
+     *
+     * @param Operation $parentOperation
+     * @param Operation $childOperation
+     * @throws Exception\GraphWriteException
+     */
     public function addDependencyByOperation(Operation $parentOperation, Operation $childOperation)
     {
         if ($this->graphInitialized) {
@@ -38,6 +53,8 @@ class DependencyManager
     }
 
     /**
+     * One parameter must be a tag, the other one an operation.
+     *
      * @param string|Operation $parent
      * @param string|Operation $child
      * @throws \Exception
@@ -73,6 +90,9 @@ class DependencyManager
         }
     }
 
+    /**
+     * @return array
+     */
     public function getExecutableOperations()
     {
         $this->initGraph();
@@ -87,12 +107,21 @@ class DependencyManager
         return $list;
     }
 
+    /**
+     * An operation that is marked as started, is not returned when ::getExecutableOperations() is called.
+     * But dependency is not fulfilled, so other operations depending on the operation still have to wait.
+     *
+     * @param Operation $operation
+     */
     public function markAsStarted(Operation $operation)
     {
         $this->initGraph();
         $this->nodes[$operation->getId()]->setStarted();
     }
 
+    /**
+     * @param Operation $operation
+     */
     public function markAsExecuted(Operation $operation)
     {
         $this->initGraph();
@@ -101,6 +130,17 @@ class DependencyManager
             $this->nodes[$dependent]->decreaseDependencyCounter();
         }
         unset($this->nodes[$operation->getId()]);
+    }
+
+    /**
+     * Returns true if all operations are marked as executed
+     *
+     * @return bool
+     */
+    public function isFinished()
+    {
+        $this->initGraph();
+        return count($this->nodes) < 1;
     }
 
     private function initGraph()

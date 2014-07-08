@@ -292,6 +292,24 @@ class DependencyManagerTest extends \PHPUnit_Framework_TestCase
 
         $dm->addDependencyByOperation($op1, $op4);
     }
+
+    public function testIsFinishedFunctionality()
+    {
+        $op1 = new Operation(1);
+        $op2 = new Operation(2);
+
+        $dm = new DependencyManager();
+        $dm->addOperation($op1);
+        $dm->addOperation($op2);
+
+        $dm->addDependencyByOperation($op1, $op2);
+
+        $this->assertFalse($dm->isFinished());
+        $dm->markAsExecuted($op1);
+        $this->assertFalse($dm->isFinished());
+        $dm->markAsExecuted($op2);
+        $this->assertTrue($dm->isFinished());
+    }
 }
 
 
