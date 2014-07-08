@@ -52,7 +52,22 @@ More complex graphs are possible.
     8
 ```
 
+## Acyclicity
+
 The graph is acyclic, which means something like this is NOT allowed:
+
+```php
+$op1 = new Operation(1);
+$op2 = new Operation(2);
+$op3 = new Operation(3);
+
+$dm = new DependencyManager();
+$dm->addOperation($op1)->addOperation($op2)->addOperation($op3);
+
+$dm->addDependencyByOperation($op1, $op2);
+$dm->addDependencyByOperation($op2, $op3);
+$dm->addDependencyByOperation($op3, $op1);
+```
 
 ```
    1
@@ -61,3 +76,45 @@ The graph is acyclic, which means something like this is NOT allowed:
 ```
 
 Cycles will be detected when the graph is initialized. A CycleException will be thrown.
+
+## Working With Tags
+
+You can assign one or multiple tags to operations. Afterwards you can use tags to define dependencies.
+
+```php
+$setupOperation1 = new Operation('Setup1');
+$setupOperation1->addTag('setup');
+$setupOperation2 = new Operation('Setup2');
+$setupOperation2->addTag('setup');
+
+$downstreamOperation = new Operation('Downstream');
+
+$dm = new DependencyManager();
+$dm->addOperation($setupOperation1)->addOperation($setupOperation2)->addOperation($downstreamOperation);
+
+$dm->addDependencyByTag('setup', $downstreamOperation); // execute all setup operations first
+```
+
+```
+ Setup1    Setup2
+    \       /
+     \     /
+      \   /
+       \ /
+    Downstream
+```
+
+Of course the other way around is also possible:
+
+```php
+$dm->addDependencyByTag($downstreamOperation, 'setup'); // downstream is a dependency for all operations tagged with "setup"
+```
+
+```
+    Downstream
+       / \
+      /   \
+     /     \
+    /       \
+ Setup1    Setup2
+```
