@@ -6,10 +6,10 @@ class DependencyManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function testSimpleDependencyGraph()
     {
-        $op1 = new Operation(1);
-        $op2 = new Operation(2);
-        $op3 = new Operation(3);
-        $op4 = new Operation(4);
+        $op1 = new GenericOperation(1);
+        $op2 = new GenericOperation(2);
+        $op3 = new GenericOperation(3);
+        $op4 = new GenericOperation(4);
 
         $dm = new DependencyManager();
         $dm->addOperation($op1);
@@ -54,14 +54,14 @@ class DependencyManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testDependencyGraphWithTwoEntryNodes()
     {
-        $op1 = new Operation(1);
-        $op2 = new Operation(2);
-        $op3 = new Operation(3);
-        $op4 = new Operation(4);
-        $op5 = new Operation(5);
-        $op6 = new Operation(6);
-        $op7 = new Operation(7);
-        $op8 = new Operation(8);
+        $op1 = new GenericOperation(1);
+        $op2 = new GenericOperation(2);
+        $op3 = new GenericOperation(3);
+        $op4 = new GenericOperation(4);
+        $op5 = new GenericOperation(5);
+        $op6 = new GenericOperation(6);
+        $op7 = new GenericOperation(7);
+        $op8 = new GenericOperation(8);
 
         $dm = new DependencyManager();
         $dm->addOperation($op1);
@@ -122,14 +122,14 @@ class DependencyManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testUsingTagsToDefineDependencies()
     {
-        $op1 = new Operation(1);
-        $op2 = new Operation(2);
+        $op1 = new GenericOperation(1);
+        $op2 = new GenericOperation(2);
         $op2->addTag('MyTag');
-        $op3 = new Operation(3);
+        $op3 = new GenericOperation(3);
         $op3->addTag('MyTag');
-        $op4 = new Operation(4);
+        $op4 = new GenericOperation(4);
         $op4->addTag('MyTag');
-        $op5 = new Operation(5);
+        $op5 = new GenericOperation(5);
 
         $dm = new DependencyManager();
         $dm->addOperation($op1);
@@ -170,9 +170,9 @@ class DependencyManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testCycleDetectionWithoutEntryPoint()
     {
-        $op1 = new Operation(1);
-        $op2 = new Operation(2);
-        $op3 = new Operation(3);
+        $op1 = new GenericOperation(1);
+        $op2 = new GenericOperation(2);
+        $op3 = new GenericOperation(3);
 
         $dm = new DependencyManager();
         $dm->addOperation($op1);
@@ -194,10 +194,10 @@ class DependencyManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testCycleDetectionWithCycleWithinGraph()
     {
-        $op1 = new Operation(1);
-        $op2 = new Operation(2);
-        $op3 = new Operation(3);
-        $op4 = new Operation(4);
+        $op1 = new GenericOperation(1);
+        $op2 = new GenericOperation(2);
+        $op3 = new GenericOperation(3);
+        $op4 = new GenericOperation(4);
 
         $dm = new DependencyManager();
         $dm->addOperation($op1);
@@ -223,10 +223,10 @@ class DependencyManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testMarkAsStartedFunctionality()
     {
-        $op1 = new Operation(1);
-        $op2 = new Operation(2);
-        $op3 = new Operation(3);
-        $op4 = new Operation(4);
+        $op1 = new GenericOperation(1);
+        $op2 = new GenericOperation(2);
+        $op3 = new GenericOperation(3);
+        $op4 = new GenericOperation(4);
 
         $dm = new DependencyManager();
         $dm->addOperation($op1);
@@ -270,10 +270,10 @@ class DependencyManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testGraphIsNotWritableAfterInitializing()
     {
-        $op1 = new Operation(1);
-        $op2 = new Operation(2);
-        $op3 = new Operation(3);
-        $op4 = new Operation(4);
+        $op1 = new GenericOperation(1);
+        $op2 = new GenericOperation(2);
+        $op3 = new GenericOperation(3);
+        $op4 = new GenericOperation(4);
 
         $dm = new DependencyManager();
         $dm->addOperation($op1);
@@ -295,8 +295,8 @@ class DependencyManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testIsFinishedFunctionality()
     {
-        $op1 = new Operation(1);
-        $op2 = new Operation(2);
+        $op1 = new GenericOperation(1);
+        $op2 = new GenericOperation(2);
 
         $dm = new DependencyManager();
         $dm->addOperation($op1);
