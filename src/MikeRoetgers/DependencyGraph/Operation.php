@@ -2,38 +2,22 @@
 
 namespace MikeRoetgers\DependencyGraph;
 
-class Operation
+interface Operation
 {
     /**
-     * @var string
+     * @return string
      */
-    private $id;
+    public function getId();
 
     /**
-     * @var array
+     * @param string $tag
+     * @return void
      */
-    private $tags = array();
+    public function addTag($tag);
 
     /**
-     * @param string $id
+     * @param string $tag
+     * @return bool
      */
-    public function __construct($id)
-    {
-        $this->id = $id;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function addTag($tag)
-    {
-        $this->tags[] = $tag;
-    }
-
-    public function hasTag($tag)
-    {
-        return in_array($tag, $this->tags);
-    }
+    public function hasTag($tag);
 }
