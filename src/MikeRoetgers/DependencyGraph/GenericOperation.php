@@ -7,12 +7,12 @@ class GenericOperation implements Operation
     /**
      * @var string
      */
-    private $id;
+    protected $id;
 
     /**
      * @var array
      */
-    private $tags = array();
+    protected $tags = array();
 
     /**
      * @param string $id
