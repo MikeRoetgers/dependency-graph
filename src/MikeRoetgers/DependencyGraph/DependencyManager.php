@@ -108,6 +108,14 @@ class DependencyManager
     }
 
     /**
+     * @return Node[]
+     */
+    public function getOperations()
+    {
+        return $this->nodes;
+    }
+
+    /**
      * An operation that is marked as started, is not returned when ::getExecutableOperations() is called.
      * But dependency is not fulfilled, so other operations depending on the operation still have to wait.
      *
